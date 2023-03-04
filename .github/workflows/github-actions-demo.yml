@@ -24,7 +24,7 @@ jobs:
           ref: main
 
       - name: Run program
-        run: java Main.java
+        run: python hw.py
       
 
     
