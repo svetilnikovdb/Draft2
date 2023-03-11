@@ -1,12 +1,22 @@
+import unittest
+
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
 import pytest
 
-@pytest.fixture()
-def browser():
-    driver = webdriver.Chrome()
-    yield driver
-    driver.quit()
+class PythonSearchTest(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get("http://www.python.org")
+        time.sleep(2)
 
-def test_example_homepage(browser):
-    browser.get("https://www.example.com")
-    assert "Example Domain" in browser.title
+    def test_title(self):
+        self.assertEqual(self.driver.title, "Welcome to Python.org")
+
+    def tearDown(self):
+        self.driver.close()
+        
+if __name__ == '__main__':
+    unittest.main()
