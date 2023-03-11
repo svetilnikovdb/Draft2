@@ -18,16 +18,18 @@ jobs:
     # в github actions будет выводиться название шага, и процессы
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3- run
         with:
           repository: svetilnikovdb/Enterprise2
           ref: main
         
+      - name: install software
+      - run: sudo apt-get install -y chromium-browser
+      
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run UI-tests
-        run: |
-          pytest seleniumChrome.py   
+        run: pytest seleniumChrome.py   
 
     
 
