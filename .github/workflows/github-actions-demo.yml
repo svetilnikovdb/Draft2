@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run UI-tests
-        run: pytest seleniumChrome.py   
+        run: python seleniumChrome.py   
 
     
 
