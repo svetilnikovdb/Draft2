@@ -1,34 +1,30 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# целевые события для запуска
-# в данном случае это push и pull_request, в ветку main
-on:
-  push:
-    branches: [ main ]
 
-# выполняемые действия
+on: [repository_dispatch, workflow_dispatch]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  run_program:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
-    # запускаются по шагам
-    # name - название шага
-    # в github actions будет выводиться название шага, и процессы
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - name: Check out this repo
+        uses: actions/checkout@v2
+     #Setup Python   
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          repository: svetilnikovdb/Enterprise2
-          ref: main
-        
-      - name: install software
-        run: sudo apt-get install -y chromium-browser      
-      - name: Install dependencies
+          python-version: '3.9'
+      - name: Install software
+        run: sudo apt-get install -y chromium-browser
+      - name: Install requirements
         run: pip install -r requirements.txt
-      - name: Run UI-tests
-        run: pytest UITest.py   
+      - name: Run the PytTest script
+        run: pytest UITest.py
 
     
 
