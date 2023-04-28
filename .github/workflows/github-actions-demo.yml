@@ -1,54 +1,24 @@
 name: CI
-
-
-
-
-on: [repository_dispatch, workflow_dispatch]
-
-
-
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-
+# целевые события для запуска
+# в данном случае это push и pull_request, в ветку main
+on:
+  push:
+    branches: [ main ]
+# выполняемые действия
 jobs:
-
-  # This workflow contains a single job called "build"
-
-  build:
-
-    # The type of runner that the job will run on
-
+  run_program:
     runs-on: ubuntu-latest
-
-
-
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-
+    
+    # запускаются по шагам
+    # name - название шага
+    # в github actions будет выводиться название шага, и процессы
     steps:
-
-      - name: Check out this repo
-
-        uses: actions/checkout@v2
-
-     #Setup Python   
-
-      - name: Set up Python
-
-        uses: actions/setup-python@v2
-
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
         with:
+          repository: svetilnikovdb/Enterprise2
+          ref: main
 
-          python-version: '3.9'
-
-      - name: Install software
-
-        run: sudo apt-get install -y chromium-browser
-
-      - name: Install requirements
-
-        run: pip install -r requirements.txt
-
-      - name: Run the PytTest script
-
-        run: pytest UITest.py
+      - name: Run program
+        run: java Main.java
+        run: java Main2.java
